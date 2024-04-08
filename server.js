@@ -26,9 +26,13 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+// TEST RESPONSE
+
 app.get("/", (req, res) => {
   res.send("server is running");
 });
+
+// RUN SERVER
 
 app.listen(port, () => {
   console.log(
