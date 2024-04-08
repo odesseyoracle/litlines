@@ -1,7 +1,10 @@
 import "./config.js";
 import "./db-connection.js";
+
 import express from "express";
 import cors from "cors";
+
+import { errorResponder } from "./middleware/errorHandling.js";
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -31,6 +34,10 @@ app.use(cors(corsOptions));
 app.get("/", (req, res) => {
   res.send("server is running");
 });
+
+// ERROR HANDLING
+
+app.use(errorResponder);
 
 // RUN SERVER
 
