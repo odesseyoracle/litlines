@@ -11,7 +11,6 @@ const userValidationRules = [
       "The password must contain at least 1 number, 1 lowercase and uppercase character, one special character and be at least 8 characters long."
     ),
   body("email").isEmail().withMessage("Please enter a valid email address!"),
-  ,
   validate,
 ];
 
