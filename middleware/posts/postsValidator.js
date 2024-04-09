@@ -6,7 +6,7 @@ const postsValidationRules = [
   body("author"),
   body("page").optional(),
   body("bookInfo").optional().isMongoId(),
-  body("user").isMongoId(),
+  body("user").notEmpty().isMongoId(),
   validate,
 ];
 
