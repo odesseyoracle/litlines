@@ -18,7 +18,7 @@ const booksValidationRules = [
 
   body("publisher")
     .optional()
-    .isLength({ max: 100 })
+    .isLength({ max: 80 })
     .withMessage("Publisher name cannot exceed 100 characters"),
 
   body("language")
