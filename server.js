@@ -4,6 +4,7 @@ import "./db-connection.js";
 import express from "express";
 import cors from "cors";
 
+import { usersMainPath, usersRouter } from "./routes/usersRoutes.js";
 import { errorResponder } from "./middleware/errorHandling.js";
 
 const app = express();
@@ -34,6 +35,10 @@ app.use(cors(corsOptions));
 app.get("/", (req, res) => {
   res.send("server is running");
 });
+
+// ROUTES
+
+app.use(usersMainPath, usersRouter);
 
 // ERROR HANDLING
 
