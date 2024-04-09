@@ -10,4 +10,6 @@ import {
 
 const usersRouter = express.Router();
 
-export { usersRouter };
+const usersMainPath = "/users";
+
+export { usersRouter, usersMainPath };
