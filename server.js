@@ -14,7 +14,11 @@ app.use(express.json());
 
 // CORS
 
-const allowedOrigins = ["http://localhost", "https://litlines.onrender.com"];
+const allowedOrigins = [
+  "http://localhost",
+  "https://litlines.onrender.com",
+  "http://localhost:5173",
+];
 
 const corsOptions = {
   origin: function (origin, callback) {
