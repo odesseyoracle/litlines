@@ -68,4 +68,4 @@ const deletePost = async (req, res) => {
   }
 };
 
-export { addPost, getAllPosts, getOnePost };
+export { addPost, getAllPosts, getOnePost, updatePost, deletePost };
