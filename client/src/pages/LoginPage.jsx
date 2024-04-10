@@ -8,6 +8,14 @@ const LoginPage = () => {
     email: "",
     profilePic: "",
   });
+
+  function handleChange(type) {
+    return (e) => {
+      const value = type === "image" ? e.target.files[0] : e.target.value;
+      setData({ ...data, [e.target.name]: value });
+    };
+  }
+
   return (
     <>
       <h1>Login</h1>
@@ -18,10 +26,17 @@ const LoginPage = () => {
           id="userName"
           placeholder="Username"
           name="userName"
+          onChange={handleChange("text")}
         />
         <br />
         <label htmlFor="email">Email</label>
-        <input type="email" id="email" placeholder="Email" name="email" />
+        <input
+          type="email"
+          id="email"
+          placeholder="Email"
+          name="email"
+          onChange={handleChange("text")}
+        />
         <br />
         <label htmlFor="password">Password</label>
         <input
@@ -29,10 +44,16 @@ const LoginPage = () => {
           id="password"
           placeholder="Password"
           name="password"
+          onChange={handleChange("text")}
         />
         <br />
         <label htmlFor="profilePc">Profile Picture</label>
-        <input type="file" id="profilePic" name="profilePic" />
+        <input
+          type="file"
+          id="profilePic"
+          name="profilePic"
+          onChange={handleChange("image")}
+        />
         <br />
         <button>Register</button>
       </form>
