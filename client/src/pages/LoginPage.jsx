@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import axios from "axios";
 
 const LoginPage = () => {
   const [data, setData] = useState({
@@ -15,6 +16,34 @@ const LoginPage = () => {
       setData({ ...data, [e.target.name]: value });
     };
   }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      let formData = new FormData();
+      formData.append("userName", data.userName);
+      formData.append("email", data.email);
+      formData.append("password", data.password);
+      formData.append("profilePic", data.profilePic);
+
+      const res = await axios.post(
+        "http://localhost:3000/users/register",
+        formData
+      );
+
+      if (res.ok) {
+        console.log("successfully registered");
+        setData({
+          userName: "",
+          password: "",
+          email: "",
+          profilePic: "",
+        });
+      }
+    } catch (error) {
+      console.log("error:", error);
+    }
+  };
 
   return (
     <>
@@ -55,7 +84,7 @@ const LoginPage = () => {
           onChange={handleChange("image")}
         />
         <br />
-        <button>Register</button>
+        <button onClick={handleSubmit}>Register</button>
       </form>
     </>
   );
