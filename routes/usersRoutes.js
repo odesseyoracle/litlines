@@ -20,7 +20,7 @@ usersRouter.route("/").get(getAllUsers);
 
 usersRouter
   .route("/register")
-  .post(upload.single("image"), userValidationRules, register);
+  .post(upload.single("profilePic"), userValidationRules, register);
 
 usersRouter
   .route("/:id")
