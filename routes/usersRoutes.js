@@ -8,6 +8,8 @@ import {
   deleteUser,
 } from "../controllers/usersController.js";
 
+import { upload } from "../utils/multer.js";
+
 import { userValidationRules } from "../middleware/users/userValidator.js";
 
 const usersRouter = express.Router();
@@ -16,8 +18,14 @@ const usersMainPath = "/users";
 
 usersRouter.route("/").get(getAllUsers);
 
-usersRouter.route("/register").post(userValidationRules, register);
+usersRouter
+  .route("/register")
+  .post(upload.single("image"), userValidationRules, register);
 
-usersRouter.route("/:id").get(getOneUser).patch(updateUser).delete(deleteUser);
+usersRouter
+  .route("/:id")
+  .get(getOneUser)
+  .patch(upload.single("image"), updateUser)
+  .delete(deleteUser);
 
 export { usersRouter, usersMainPath };
