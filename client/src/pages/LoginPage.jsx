@@ -1,6 +1,13 @@
 import React from "react";
+import { useState } from "react";
 
 const LoginPage = () => {
+  const [data, setData] = useState({
+    userName: "",
+    password: "",
+    email: "",
+    profilePic: "",
+  });
   return (
     <>
       <h1>Login</h1>
@@ -12,15 +19,21 @@ const LoginPage = () => {
           placeholder="Username"
           name="userName"
         />
+        <br />
+        <label htmlFor="email">Email</label>
+        <input type="email" id="email" placeholder="Email" name="email" />
+        <br />
         <label htmlFor="password">Password</label>
         <input
-          type="text"
+          type="password"
           id="password"
           placeholder="Password"
           name="password"
         />
+        <br />
         <label htmlFor="profilePc">Profile Picture</label>
         <input type="file" id="profilePic" name="profilePic" />
+        <br />
         <button>Register</button>
       </form>
     </>
