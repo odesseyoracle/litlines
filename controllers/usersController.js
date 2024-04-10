@@ -1,7 +1,11 @@
 import User from "../models/usersModel.js";
 
+import { cloudinary } from "../utils/cloudinary.js";
+
 const register = async (req, res) => {
   try {
+    const result = await cloudinary.uploader.upload(req.file.path);
+
     const { userName, password, email } = req.body;
 
     const userExists = await User.findOne({ userName });
@@ -13,7 +17,13 @@ const register = async (req, res) => {
       return res.status(400).json({ message: "Email already exists" });
     }
 
-    const newUser = { userName, password, email };
+    const newUser = {
+      userName,
+      password,
+      email,
+      avatar: result.secure_url,
+      cloudinary_id: result.public_id,
+    };
 
     await User.create(newUser);
 
@@ -56,6 +66,11 @@ const updateUser = async (req, res) => {
       { new: true }
     );
 
+    // await cloudinary.uploader.destroy(user.cloudinary_id);
+    // const result = await cloudinary.uploader.upload(req.file.path);
+    // user.avatar = result.secure_url;
+    // user.cloudinary_id = result.public_id;
+
     if (!updatedUser) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -70,6 +85,7 @@ const deleteUser = async (req, res) => {
   try {
     const { id } = req.params;
     const user = await User.findByIdAndDelete(id);
+    await cloudinary.uploader.destroy(user.cloudinary_id);
     if (!user) {
       res.status(404).json({ message: "User not found" });
     }

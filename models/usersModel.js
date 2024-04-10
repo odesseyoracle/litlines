@@ -13,6 +13,12 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  avatar: {
+    type: String,
+  },
+  cloudinary_id: {
+    type: String,
+  },
 });
 
 const User = model("user", userSchema);
