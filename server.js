@@ -6,6 +6,7 @@ import cors from "cors";
 
 import { usersMainPath, usersRouter } from "./routes/usersRoutes.js";
 import { booksRouter, booksMainPath } from "./routes/booksRoutes.js";
+import { postsRouter, postsMainPath } from "./routes/postsRoutes.js";
 import { errorResponder } from "./middleware/errorHandling.js";
 
 const app = express();
@@ -45,6 +46,7 @@ app.get("/", (req, res) => {
 
 app.use(usersMainPath, usersRouter);
 app.use(booksMainPath, booksRouter);
+app.use(postsMainPath, postsRouter);
 
 // ERROR HANDLING
 
