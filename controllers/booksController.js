@@ -71,4 +71,20 @@ const updateBook = async (req, res) => {
   }
 };
 
-export { addBook, getAllBooks, getOneBook, updateBook };
+const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const book = await Book.findByIdAndDelete(id);
+    await cloudinary.uploader.destroy(book.cloudinary_id);
+    if (!book) {
+      res.status(404).json({ message: "Book not found" });
+    }
+    res
+      .status(200)
+      .json({ message: `Book ${book.title} successfully deleted` });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export { addBook, getAllBooks, getOneBook, updateBook, deleteUser };
