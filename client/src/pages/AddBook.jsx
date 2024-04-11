@@ -6,7 +6,7 @@ const AddBook = () => {
   const [book, setBook] = useState({
     title: "",
     author: "",
-    isbn: 0,
+    isbn: "",
     publisher: "",
     language: "",
     bookCover: "",
@@ -20,7 +20,7 @@ const AddBook = () => {
   }
 
   const handleSubmit = async (e) => {
-    console.log("test:", test);
+    console.log("test");
     e.preventDefault();
     try {
       let formData = new FormData();
@@ -35,7 +35,7 @@ const AddBook = () => {
         "http://localhost:3000/books/addBook",
         formData
       );
-      if (res.ok) {
+      if (res.status == "200") {
         console.log("book successfully added");
       }
     } catch (error) {
@@ -67,7 +67,7 @@ const AddBook = () => {
         <br />
         <label htmlFor="isbn">ISBN</label>
         <input
-          type="number"
+          type="string"
           id="isbn"
           name="isbn"
           placeholder="ISBN"
