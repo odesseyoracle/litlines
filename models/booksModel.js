@@ -12,6 +12,12 @@ const bookSchema = new Schema({
   isbn: Number,
   publisher: String,
   language: String,
+  avatar: {
+    type: String,
+  },
+  cloudinary_id: {
+    type: String,
+  },
 });
 
 const Book = model("book", bookSchema);
