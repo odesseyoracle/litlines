@@ -8,7 +8,7 @@ const AddPost = () => {
     author: "",
     page: "",
     bookInfo: "",
-    user: "",
+    user: "(change this to) Logged in User",
   });
 
   function handleChange() {
@@ -78,10 +78,10 @@ const AddPost = () => {
         // LOOK FOR BOOK IN DB, IF NOT LINK TO ADD BOOK FORM
         />
         <br />
-        <label htmlFor="user">User</label>
-        <input
-        // USERNAME OF LOGGED IN USER
-        />
+        <label htmlFor="user">
+          User: <span id="user">{post.user}</span>
+        </label>
+
         <br />
         <button onClick={handleSubmit}>Add Quote</button>
       </form>
