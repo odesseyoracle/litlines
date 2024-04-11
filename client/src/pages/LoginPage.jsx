@@ -30,8 +30,9 @@ const LoginPage = () => {
         "http://localhost:3000/users/register",
         formData
       );
+      console.log("res:", res);
 
-      if (res.ok) {
+      if (res.status == "200") {
         console.log("successfully registered");
         setData({
           userName: "",

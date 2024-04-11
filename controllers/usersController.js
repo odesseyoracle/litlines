@@ -60,16 +60,17 @@ const getOneUser = async (req, res) => {
 const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
-    const updatedUser = await User.findByIdAndUpdate(
-      id,
-      { $set: req.body },
-      { new: true }
-    );
 
     // await cloudinary.uploader.destroy(user.cloudinary_id);
     // const result = await cloudinary.uploader.upload(req.file.path);
     // user.avatar = result.secure_url;
     // user.cloudinary_id = result.public_id;
+
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      // { $set: {req.body, avatar : , cloudinary_id: } },
+      { new: true }
+    );
 
     if (!updatedUser) {
       return res.status(404).json({ message: "User not found" });
