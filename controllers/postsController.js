@@ -1,4 +1,4 @@
-import Post from "../models/postsMode.js";
+import Post from "../models/postsModel.js";
 
 const addPost = async (req, res) => {
   try {
