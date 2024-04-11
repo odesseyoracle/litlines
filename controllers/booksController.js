@@ -21,3 +21,17 @@ const addBook = async (req, res) => {
     res.status(500).json(error.message);
   }
 };
+
+const getAllBooks = async (req, res) => {
+  try {
+    const books = await Book.find();
+    if (!books) {
+      return res.status(404).json({ message: "No books found!" });
+    }
+    res.status(200).json(books);
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+};
+
+export { addBook };
