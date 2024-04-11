@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 
-const LoginPage = () => {
+const RegisterPage = () => {
   const [data, setData] = useState({
     userName: "",
     password: "",
@@ -48,7 +48,7 @@ const LoginPage = () => {
 
   return (
     <>
-      <h1>Login</h1>
+      <h1>Register User</h1>
       <form>
         <label htmlFor="userName">Username</label>
         <input
@@ -91,4 +91,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;
