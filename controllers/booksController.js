@@ -47,4 +47,28 @@ const getOneBook = async (req, res) => {
   }
 };
 
-export { addBook, getAllBooks, getOneBook };
+const updateBook = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedBook = await Book.findByIdAndUpdate(
+      id,
+      { $set: req.body },
+      { new: true }
+    );
+
+    // await cloudinary.uploader.destroy(updatedBook.cloudinary_id);
+    // const result = await cloudinary.uploader.upload(req.file.path);
+    // updatedBook.avatar = result.secure_url;
+    // updatedBook.cloudinary_id = result.public_id;
+
+    if (!updatedBook) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+
+    res.status(200).json({ message: "Book updated", updatedBook });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export { addBook, getAllBooks, getOneBook, updateBook };
