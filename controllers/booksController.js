@@ -71,7 +71,7 @@ const updateBook = async (req, res) => {
   }
 };
 
-const deleteUser = async (req, res) => {
+const deleteBook = async (req, res) => {
   try {
     const { id } = req.params;
     const book = await Book.findByIdAndDelete(id);
@@ -87,4 +87,4 @@ const deleteUser = async (req, res) => {
   }
 };
 
-export { addBook, getAllBooks, getOneBook, updateBook, deleteUser };
+export { addBook, getAllBooks, getOneBook, updateBook, deleteBook };
