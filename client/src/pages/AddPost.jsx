@@ -1,6 +1,7 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
+import AddBook from "./AddBook";
 
 const AddPost = () => {
   const [post, setPost] = useState({
@@ -8,35 +9,56 @@ const AddPost = () => {
     author: "",
     page: "",
     bookInfo: "",
-    user: "(change this to) Logged in User",
+    user: "6616907efb8c72b8872ded3a",
   });
 
-  function handleChange() {
-    return (e) => {
-      const value = e.target.value;
-      setBook({ ...post, [e.target.name]: value });
+  const [books, setBooks] = useState([]);
+
+  const [newBookLink, setNewBookLink] = useState(false);
+
+  useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/books");
+        setBooks(response.data);
+      } catch (error) {
+        console.error("Error fetching books:", error);
+      }
     };
-  }
+
+    fetchBooks();
+  }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setPost({ ...post, [name]: value });
+  };
+
+  const handleBookSelect = (e) => {
+    const { value } = e.target;
+    if (value === "addNewBook") {
+      setNewBookLink(true);
+    } else {
+      const selectedBook = books.find((book) => book._id === value);
+      console.log("selectedBook:", selectedBook);
+      setNewBookLink(false);
+      setPost({
+        ...post,
+        author: selectedBook.author,
+        bookInfo: selectedBook._id,
+      });
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let formData = new FormData();
-      formData.append("quote", post.quote);
-      formData.append("author", post.author);
-      formData.append("page", post.page);
-      formData.append("bookInfo", post.bookInfo);
-      formData.append("user", post.user);
-
-      const res = await axios.post(
-        "http://localhost:3000/posts/addPost",
-        formData
-      );
+      const res = await axios.post("http://localhost:3000/posts/addPost", post);
       if (res.status == "200") {
-        console.log("quote successfully added");
+        console.log("Quote successfully added");
       }
     } catch (error) {
-      console.log(error);
+      console.log("Error adding quote", error);
     }
   };
 
@@ -44,6 +66,21 @@ const AddPost = () => {
     <>
       <h1>Add a quote 📝 </h1>
       <form>
+        <label htmlFor="bookInfo">Book</label>
+
+        <select name="bookInfo" id="bookInfo" onChange={handleBookSelect}>
+          <option value="">Select a book ...</option>
+          {books.map((book) => (
+            <option key={book._id} value={book._id}>
+              {book.title} - {book.author}
+            </option>
+          ))}
+          <option value="addNewBook">Add a new Book ...</option>
+        </select>
+
+        {newBookLink && <AddBook />}
+
+        <br />
         <label htmlFor="quote">Quote</label>
         <textarea
           type="text"
@@ -55,14 +92,10 @@ const AddPost = () => {
           onChange={handleChange}
         />
         <br />
-        <label htmlFor="author">Author</label>
-        <input
-          type="text"
-          id="author"
-          name="author"
-          placeholder="Author"
-          onChange={handleChange}
-        />
+        <label htmlFor="author">
+          Author: <span>{post.author}</span>
+        </label>
+
         <br />
         <label htmlFor="page">Page</label>
         <input
@@ -71,11 +104,6 @@ const AddPost = () => {
           name="page"
           placeholder="Page"
           onChange={handleChange}
-        />
-        <br />
-        <label htmlFor="bookInfo">Book</label>
-        <input
-        // LOOK FOR BOOK IN DB, IF NOT LINK TO ADD BOOK FORM
         />
         <br />
         <label htmlFor="user">
