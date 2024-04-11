@@ -20,20 +20,24 @@ const AddBook = () => {
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault;
+    console.log("test:", test);
+    e.preventDefault();
     try {
       let formData = new FormData();
-      formData.append("title");
-      formData.append("author");
-      formData.append("isbn");
-      formData.append("publisher");
-      formData.append("language");
-      formData.append("bookCover");
+      formData.append("title", book.title);
+      formData.append("author", book.author);
+      formData.append("isbn", book.isbn);
+      formData.append("publisher", book.publisher);
+      formData.append("language", book.language);
+      formData.append("bookCover", book.bookCover);
 
       const res = await axios.post(
         "http://localhost:3000/books/addBook",
         formData
       );
+      if (res.ok) {
+        console.log("book successfully added");
+      }
     } catch (error) {
       console.log(error);
     }
