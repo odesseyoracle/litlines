@@ -9,7 +9,7 @@ function App() {
     <>
       <Navbar />
       <RegisterPage />
-      <AddBook />
+
       <AddPost />
     </>
   );
