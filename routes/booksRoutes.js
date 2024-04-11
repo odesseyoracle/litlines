@@ -14,7 +14,7 @@ import { booksValidationRules } from "../middleware/users/booksValidator.js";
 
 const booksRouter = express.Router();
 
-const usersMainPath = "/books";
+const booksMainPath = "/books";
 
 usersRouter.route("/").get(getAllBooks);
 
