@@ -5,6 +5,7 @@ import express from "express";
 import cors from "cors";
 
 import { usersMainPath, usersRouter } from "./routes/usersRoutes.js";
+import { booksRouter, booksMainPath } from "./routes/booksRoutes.js";
 import { errorResponder } from "./middleware/errorHandling.js";
 
 const app = express();
@@ -43,6 +44,7 @@ app.get("/", (req, res) => {
 // ROUTES
 
 app.use(usersMainPath, usersRouter);
+app.use(booksMainPath, booksRouter);
 
 // ERROR HANDLING
 
