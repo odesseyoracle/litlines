@@ -10,19 +10,19 @@ import {
 
 import { upload } from "../utils/multer.js";
 
-import { booksValidationRules } from "../middleware/users/booksValidator.js";
+import { booksValidationRules } from "../middleware/books/booksValidator.js";
 
 const booksRouter = express.Router();
 
 const booksMainPath = "/books";
 
-usersRouter.route("/").get(getAllBooks);
+booksRouter.route("/").get(getAllBooks);
 
-usersRouter
+booksRouter
   .route("/addBook")
   .post(upload.single("bookCover"), booksValidationRules, addBook);
 
-usersRouter
+booksRouter
   .route("/:id")
   .get(getOneBook)
   .patch(upload.single("bookCover"), updateBook)
