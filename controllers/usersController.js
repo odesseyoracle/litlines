@@ -2,6 +2,7 @@ import User from "../models/usersModel.js";
 
 import { cloudinary } from "../utils/cloudinary.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const register = async (req, res) => {
   try {
@@ -31,8 +32,34 @@ const register = async (req, res) => {
     await User.create(newUser);
 
     res.status(200).json({ message: "New user added 👓", user: userName });
+    console.log(`User ${newUser.userName} successfully registered!`);
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+const login = async (req, res) => {
+  try {
+    const { userName, password } = req.body;
+
+    const user = await User.findOne({ userName });
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    if (!password) {
+      return res.status(404).json({ message: "Wrong password" });
+    }
+
+    const token = jwt.sign({ userId: user._id }, "secretCode", {
+      expiresIn: "1h",
+    });
+    res.cookie("sessionToken", token, { httpOnly: true });
+    res.json({ message: `User ${user.userName} logged in successfully` });
+    console.log(`User ${user.userName} logged in successfully`);
+  } catch (error) {
+    res.status(500).json({ message: "Error logging in", error: error.message });
   }
 };
 
@@ -101,4 +128,4 @@ const deleteUser = async (req, res) => {
   }
 };
 
-export { register, getAllUsers, getOneUser, updateUser, deleteUser };
+export { register, getAllUsers, getOneUser, updateUser, deleteUser, login };

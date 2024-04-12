@@ -2,6 +2,7 @@ import express from "express";
 
 import {
   register,
+  login,
   getAllUsers,
   getOneUser,
   updateUser,
@@ -17,6 +18,8 @@ const usersRouter = express.Router();
 const usersMainPath = "/users";
 
 usersRouter.route("/").get(getAllUsers);
+
+usersRouter.route("/login").post(login);
 
 usersRouter
   .route("/register")
