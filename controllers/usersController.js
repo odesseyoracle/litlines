@@ -1,6 +1,7 @@
 import User from "../models/usersModel.js";
 
 import { cloudinary } from "../utils/cloudinary.js";
+import bcrypt from "bcrypt";
 
 const register = async (req, res) => {
   try {
@@ -17,9 +18,11 @@ const register = async (req, res) => {
       return res.status(400).json({ message: "Email already exists" });
     }
 
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const newUser = {
       userName,
-      password,
+      password: hashedPassword,
       email,
       avatar: result.secure_url,
       cloudinary_id: result.public_id,
