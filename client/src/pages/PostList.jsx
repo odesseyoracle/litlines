@@ -27,7 +27,7 @@ const PostList = () => {
     <>
       <h1>Feed</h1>
       {quotes.map((quote) => (
-        <Post {...quote} />
+        <Post key={quote._id} {...quote} />
       ))}
     </>
   );
