@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Post from "../features/Post.jsx";
 
 const PostList = () => {
   const [quotes, setQuotes] = useState([]);
@@ -25,6 +26,9 @@ const PostList = () => {
   return (
     <>
       <h1>Feed</h1>
+      {quotes.map((quote) => (
+        <Post {...quote} />
+      ))}
     </>
   );
 };
