@@ -3,6 +3,7 @@ import User from "../models/usersModel.js";
 import { cloudinary } from "../utils/cloudinary.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import cookieParser from "cookie-parser";
 
 const register = async (req, res) => {
   try {
@@ -48,15 +49,17 @@ const login = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    if (!password) {
+    if (!passwordMatch) {
       return res.status(404).json({ message: "Wrong password" });
     }
 
     const token = jwt.sign({ userId: user._id }, "secretCode", {
       expiresIn: "1h",
     });
-    res.cookie("sessionToken", token, { httpOnly: true });
-    res.json({ message: `User ${user.userName} logged in successfully` });
+    res.cookie("sessionToken", token, { httpOnly: true, secure: true });
+    res
+      .status(200)
+      .json({ message: `User ${user.userName} logged in successfully` });
     console.log(`User ${user.userName} logged in successfully`);
   } catch (error) {
     res.status(500).json({ message: "Error logging in", error: error.message });
