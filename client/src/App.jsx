@@ -12,7 +12,7 @@ function App() {
 
       <Login />
 
-      <RegisterPage />
+      {/* <RegisterPage /> */}
 
       <AddPost />
       <PostList />

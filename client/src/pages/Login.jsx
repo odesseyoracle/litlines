@@ -14,14 +14,16 @@ export const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:3000/users/login", user);
+      const res = await axios.post("http://localhost:3000/users/login", user, {
+        withCredentials: true,
+      });
       console.log("res: ", res);
       if (res.status == "200") {
         setUser({
           userName: "",
           password: "",
         });
-        window.location.reload();
+        // window.location.reload();
       }
     } catch (error) {
       console.log("Error logging in");
