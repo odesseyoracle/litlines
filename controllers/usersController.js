@@ -3,7 +3,6 @@ import User from "../models/usersModel.js";
 import { cloudinary } from "../utils/cloudinary.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import cookieParser from "cookie-parser";
 
 const register = async (req, res) => {
   try {
@@ -43,15 +42,18 @@ const login = async (req, res) => {
   try {
     const { userName, password } = req.body;
 
-    const user = await User.findOne({ userName });
-    const passwordMatch = await bcrypt.compare(password, user.password);
+    const foundUser = await User.findOne({ userName });
+    const passwordMatch = await bcrypt.compare(password, foundUser.password);
 
-    if (!user) {
+    if (!foundUser) {
       return res.status(404).json({ message: "User not found" });
     }
     if (!passwordMatch) {
       return res.status(404).json({ message: "Wrong password" });
     }
+
+    const user = foundUser.toObject();
+    delete user.password;
 
     const token = jwt.sign({ userId: user._id }, "secretCode", {
       expiresIn: "1h",
@@ -59,10 +61,21 @@ const login = async (req, res) => {
     res.cookie("sessionToken", token, { httpOnly: true, secure: true });
     res
       .status(200)
-      .json({ message: `User ${user.userName} logged in successfully` });
+      .json({ message: `User ${user.userName} logged in successfully`, user });
     console.log(`User ${user.userName} logged in successfully`);
   } catch (error) {
     res.status(500).json({ message: "Error logging in", error: error.message });
+  }
+};
+
+const logout = async (req, res) => {
+  try {
+    res
+      .clearCookie("sessionToken")
+      .status(200)
+      .json({ message: "logout successful" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -131,4 +144,36 @@ const deleteUser = async (req, res) => {
   }
 };
 
-export { register, getAllUsers, getOneUser, updateUser, deleteUser, login };
+const checkLoggedIn = async (req, res) => {
+  try {
+    const token = req.cookies.sessionToken;
+    if (!token) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    const decoded = jwt.verify(token, "secretCode");
+    const user = await User.findById(decoded.userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    console.log("user:", user);
+    const userObj = user.toObject();
+    delete userObj.password;
+
+    res.status(200).json({ message: "User logged in", user: userObj });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export {
+  register,
+  getAllUsers,
+  getOneUser,
+  updateUser,
+  deleteUser,
+  login,
+  logout,
+  checkLoggedIn,
+};

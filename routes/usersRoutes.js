@@ -3,10 +3,12 @@ import express from "express";
 import {
   register,
   login,
+  logout,
   getAllUsers,
   getOneUser,
   updateUser,
   deleteUser,
+  checkLoggedIn,
 } from "../controllers/usersController.js";
 
 import { upload } from "../utils/multer.js";
@@ -20,10 +22,13 @@ const usersMainPath = "/users";
 usersRouter.route("/").get(getAllUsers);
 
 usersRouter.route("/login").post(login);
+usersRouter.route("/logout").post(logout);
 
 usersRouter
   .route("/register")
   .post(upload.single("profilePic"), userValidationRules, register);
+
+usersRouter.route("/check-login").get(checkLoggedIn);
 
 usersRouter
   .route("/:id")

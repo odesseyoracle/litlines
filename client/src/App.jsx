@@ -1,21 +1,21 @@
 import "./App.css";
+import { Routes, Route } from "react-router-dom";
 import Navbar from "./features/Navbar.jsx";
-import AddPost from "./pages/AddPost.jsx";
 import { Login } from "./pages/Login.jsx";
-import PostList from "./pages/PostList.jsx";
+
 import RegisterPage from "./pages/RegisterPage.jsx";
+import { Home } from "./pages/Home.jsx";
 
 function App() {
   return (
     <>
       <Navbar />
 
-      <Login />
-
-      {/* <RegisterPage /> */}
-
-      <AddPost />
-      <PostList />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<RegisterPage />} />
+      </Routes>
     </>
   );
 }

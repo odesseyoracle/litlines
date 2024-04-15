@@ -3,13 +3,13 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import AddBook from "./AddBook";
 
-const AddPost = () => {
+const AddPost = ({ name, id }) => {
   const [post, setPost] = useState({
     quote: "",
     author: "",
     page: "",
     bookInfo: "",
-    user: "6616907efb8c72b8872ded3a",
+    user: id,
   });
 
   const [books, setBooks] = useState([]);
@@ -54,8 +54,18 @@ const AddPost = () => {
     e.preventDefault();
     try {
       const res = await axios.post("http://localhost:3000/posts/addPost", post);
+      console.log("res:", res);
       if (res.status == "200") {
         console.log("Quote successfully added");
+        setPost({
+          ...post,
+          quote: "",
+          author: "",
+          page: "",
+          bookInfo: "",
+          user: id,
+        });
+        window.location.reload();
       }
     } catch (error) {
       console.log("Error adding quote", error);
@@ -107,7 +117,7 @@ const AddPost = () => {
         />
         <br />
         <label htmlFor="user">
-          User: <span id="user">{post.user}</span>
+          User: <span id="user">{name}</span>
         </label>
 
         <br />
