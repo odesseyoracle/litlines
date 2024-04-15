@@ -142,6 +142,11 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const checkLoggedIn = async (req, res) => {
+  const sessionCookieExists = req.headers.cookie.includes("sessionToken=");
+  res.json({ cookieExists: sessionCookieExists });
+};
+
 export {
   register,
   getAllUsers,
@@ -150,4 +155,5 @@ export {
   deleteUser,
   login,
   logout,
+  checkLoggedIn,
 };
