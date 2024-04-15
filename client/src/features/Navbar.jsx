@@ -2,36 +2,35 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "/logo.png";
 import axios from "axios";
+import { useAppContext } from "../contexts/AppContext.jsx";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const [userState, setUserState] = useState({ isLoggedIn: false });
+  const { userState, dispatchUser } = useAppContext();
 
   useEffect(() => {
-    const checkUserLogin = async () => {
+    const fetchUserData = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:3000/users/check-login"
-        );
-        const cookieExists = response.data.cookieExists;
-        console.log("cookieExists:", cookieExists);
-        setUserState({ ...userState, isLoggedIn: cookieExists ? true : false });
+        const response = await axios.get("http://localhost:3000/users/");
+        console.log("response:", response);
+        dispatchUser({ type: "fetch-user-data", value: response.data });
       } catch (error) {
         console.log("Error checking session cookie:", error);
       }
     };
-    checkUserLogin();
+    fetchUserData();
   }, []);
 
-  const handleLogin = async () => {
+  const navigateToLogin = async () => {
     try {
       if (userState.isLoggedIn) {
-        await axios.post("http://localhost:3000/users/logout");
+        const res = await axios.post("http://localhost:3000/users/logout");
         if (res.status == "200") {
           console.log("Logout successful");
+          dispatchUser({ type: "logout" });
         }
       }
-      setUserState({ isLoggedIn: false });
+
       navigate("/login");
     } catch (error) {
       console.log("error:", error);
@@ -43,7 +42,7 @@ const Navbar = () => {
       <nav>
         <img className="logo" src={logo} alt="LitLines Logo" />
         <h1>LitLines</h1>
-        <button onClick={handleLogin}>
+        <button onClick={navigateToLogin}>
           {userState.isLoggedIn ? "Logout" : "Login"}
         </button>
       </nav>

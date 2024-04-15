@@ -3,9 +3,10 @@ import axios from "axios";
 
 import { Link, useNavigate } from "react-router-dom";
 
-import RegisterPage from "./RegisterPage.jsx";
+import { useAppContext } from "../contexts/AppContext.jsx";
 
 export const Login = () => {
+  const { dispatchUser } = useAppContext();
   const navigate = useNavigate();
   const [user, setUser] = useState({
     userName: "",
@@ -28,6 +29,7 @@ export const Login = () => {
           userName: "",
           password: "",
         });
+        dispatchUser({ type: "fetch-user-data", value: data.user });
         navigate("/");
       }
     } catch (error) {

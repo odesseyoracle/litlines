@@ -28,7 +28,8 @@ const UserReducer = (state, action) => {
         ...newState,
         isLoggedIn: true,
       };
-      defalt: break;
+    default:
+      break;
   }
   return state;
 };
@@ -37,9 +38,9 @@ const AppContextProvider = ({ children }) => {
   const [userState, dispatchUser] = useReducer(UserReducer, initialState);
 
   return (
-    <AppContextProvider value={{ userState, dispatchUser }}>
+    <AppContext.Provider value={{ userState, dispatchUser }}>
       {children}
-    </AppContextProvider>
+    </AppContext.Provider>
   );
 };
 

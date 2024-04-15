@@ -42,15 +42,18 @@ const login = async (req, res) => {
   try {
     const { userName, password } = req.body;
 
-    const user = await User.findOne({ userName });
-    const passwordMatch = await bcrypt.compare(password, user.password);
+    const foundUser = await User.findOne({ userName });
+    const passwordMatch = await bcrypt.compare(password, foundUser.password);
 
-    if (!user) {
+    if (!foundUser) {
       return res.status(404).json({ message: "User not found" });
     }
     if (!passwordMatch) {
       return res.status(404).json({ message: "Wrong password" });
     }
+
+    const user = foundUser.toObject();
+    delete user.password;
 
     const token = jwt.sign({ userId: user._id }, "secretCode", {
       expiresIn: "1h",
@@ -58,7 +61,7 @@ const login = async (req, res) => {
     res.cookie("sessionToken", token, { httpOnly: true, secure: true });
     res
       .status(200)
-      .json({ message: `User ${user.userName} logged in successfully` });
+      .json({ message: `User ${user.userName} logged in successfully`, user });
     console.log(`User ${user.userName} logged in successfully`);
   } catch (error) {
     res.status(500).json({ message: "Error logging in", error: error.message });
