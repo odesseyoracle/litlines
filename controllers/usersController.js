@@ -66,6 +66,17 @@ const login = async (req, res) => {
   }
 };
 
+const logout = async (req, res) => {
+  try {
+    res
+      .clearCookie("sessionToken")
+      .status(200)
+      .json({ message: "logout successful" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.find();
@@ -131,4 +142,12 @@ const deleteUser = async (req, res) => {
   }
 };
 
-export { register, getAllUsers, getOneUser, updateUser, deleteUser, login };
+export {
+  register,
+  getAllUsers,
+  getOneUser,
+  updateUser,
+  deleteUser,
+  login,
+  logout,
+};

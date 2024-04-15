@@ -3,6 +3,7 @@ import express from "express";
 import {
   register,
   login,
+  logout,
   getAllUsers,
   getOneUser,
   updateUser,
@@ -20,6 +21,7 @@ const usersMainPath = "/users";
 usersRouter.route("/").get(getAllUsers);
 
 usersRouter.route("/login").post(login);
+usersRouter.route("/logout").post(logout);
 
 usersRouter
   .route("/register")
