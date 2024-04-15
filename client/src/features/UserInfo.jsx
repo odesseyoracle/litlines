@@ -19,25 +19,9 @@ const UserInfo = ({ id }) => {
     fetchUser();
   }, [id]);
 
-  const userInfoStyle = {
-    backgroundColor: "rgba(0, 0, 0, 0.1)", // Slightly darker background color
-    padding: "10px",
-    borderRadius: "5px",
-    marginBottom: "10px",
-    display: "flex",
-    alignItems: "center",
-  };
-
-  const profilePicStyle = {
-    width: "30px",
-    height: "30px",
-    borderRadius: "50%",
-    marginRight: "10px",
-  };
-
   return (
-    <div style={userInfoStyle}>
-      <img src={user.avatar} alt="Profile Pic" style={profilePicStyle} />
+    <div className="user-info">
+      <img src={user.avatar} alt="Profile Pic" />
       <span>{user.userName}</span>
     </div>
   );
