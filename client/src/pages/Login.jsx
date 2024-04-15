@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+import { Link, useNavigate } from "react-router-dom";
+
+import RegisterPage from "./RegisterPage.jsx";
+
 export const Login = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     userName: "",
     password: "",
@@ -23,7 +28,7 @@ export const Login = () => {
           userName: "",
           password: "",
         });
-        // window.location.reload();
+        navigate("/");
       }
     } catch (error) {
       console.log("Error logging in");
@@ -54,6 +59,7 @@ export const Login = () => {
         <br />
         <button onClick={handleSubmit}>Login</button>
       </form>
+      <Link to="/register">Click here to create an account</Link>
     </>
   );
 };

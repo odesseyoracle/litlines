@@ -2,7 +2,10 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 
+import { useNavigate } from "react-router-dom";
+
 const RegisterPage = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState({
     userName: "",
     password: "",
@@ -40,6 +43,7 @@ const RegisterPage = () => {
           email: "",
           profilePic: "",
         });
+        navigate("/login");
       }
     } catch (error) {
       console.log("error:", error);
