@@ -1,4 +1,5 @@
 import "./App.css";
+import { Routes, Route } from "react-router-dom";
 import Navbar from "./features/Navbar.jsx";
 import AddPost from "./pages/AddPost.jsx";
 import { Login } from "./pages/Login.jsx";
@@ -10,9 +11,11 @@ function App() {
     <>
       <Navbar />
 
-      <Login />
+      <Routes>
+        <Route path="/login" element={<Login />} />
+      </Routes>
 
-      {/* <RegisterPage /> */}
+      <RegisterPage />
 
       <AddPost />
       <PostList />
