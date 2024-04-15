@@ -23,7 +23,7 @@ const UserReducer = (state, action) => {
     case "logout":
       return { ...initialState };
     case "fetch-user-data":
-      const newState = action.value;
+      let newState = action.value;
       return {
         ...newState,
         isLoggedIn: true,
