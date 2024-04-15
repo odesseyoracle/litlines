@@ -14,7 +14,8 @@ const PostList = () => {
     setLoading(true);
     try {
       const res = await axios.get("http://localhost:3000/posts/");
-      const data = await res.data;
+      let data = await res.data;
+      data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       setQuotes(data);
     } catch (error) {
       console.log("Error fetching quotes", error);

@@ -21,6 +21,10 @@ const postSchema = new Schema({
     ref: "user",
     reqired: true,
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const Post = model("post", postSchema);

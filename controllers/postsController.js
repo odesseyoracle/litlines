@@ -3,7 +3,8 @@ import Post from "../models/postsModel.js";
 const addPost = async (req, res) => {
   try {
     const { quote, author, page, bookInfo, user } = req.body;
-    const newPost = { quote, author, page, bookInfo, user };
+    const createdAt = new Date();
+    const newPost = { quote, author, page, bookInfo, user, createdAt };
     await Post.create(newPost);
     res.status(200).json({ message: "New quote posted", quote });
   } catch (error) {
