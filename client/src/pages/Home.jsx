@@ -10,8 +10,10 @@ export const Home = () => {
 
   return (
     <>
-      {userState.isLoggedIn && (
+      {userState.isLoggedIn ? (
         <AddPost name={userState.userName} id={userState._id} />
+      ) : (
+        <h4>Login to post quotes</h4>
       )}
       <PostList />
     </>
