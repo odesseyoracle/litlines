@@ -88,7 +88,7 @@ const AddPost = ({ name, id }) => {
           <option value="addNewBook">Add a new Book ...</option>
         </select>
 
-        {newBookLink && <AddBook />}
+        {newBookLink && <AddBook setNewBookLink={setNewBookLink} />}
 
         <br />
         <label htmlFor="quote">Quote</label>
