@@ -3,7 +3,6 @@ import User from "../models/usersModel.js";
 import { cloudinary } from "../utils/cloudinary.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import cookieParser from "cookie-parser";
 
 const register = async (req, res) => {
   try {
@@ -143,8 +142,13 @@ const deleteUser = async (req, res) => {
 };
 
 const checkLoggedIn = async (req, res) => {
-  const sessionCookieExists = req.headers.cookie.includes("sessionToken=");
-  res.json({ cookieExists: sessionCookieExists });
+  try {
+    const sessionCookieExists = req.cookies["sessionToken"];
+    console.log("sessionCookieExists:", sessionCookieExists);
+    res.json({ cookieExists: !!sessionCookieExists });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 export {

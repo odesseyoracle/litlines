@@ -8,12 +8,17 @@ const Navbar = () => {
   const [userState, setUserState] = useState({ isLoggedIn: false });
 
   useEffect(() => {
-    const checkUserLogin = () => {
-      const cookies = document.cookie.split("; ");
-      const sessionCookie = cookies.find((cookie) =>
-        cookie.startsWith("sessionToken=")
-      );
-      setUserState({ isLoggedIn: sessionCookie ? true : false });
+    const checkUserLogin = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3000/users/check-login"
+        );
+        const cookieExists = response.data.cookieExists;
+        console.log("cookieExists:", cookieExists);
+        setUserState({ ...userState, isLoggedIn: cookieExists ? true : false });
+      } catch (error) {
+        console.log("Error checking session cookie:", error);
+      }
     };
     checkUserLogin();
   }, []);

@@ -3,6 +3,7 @@ import "./db-connection.js";
 
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 import { usersMainPath, usersRouter } from "./routes/usersRoutes.js";
 import { booksRouter, booksMainPath } from "./routes/booksRoutes.js";
@@ -13,6 +14,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(express.json());
+app.use(cookieParser());
 
 // CORS
 

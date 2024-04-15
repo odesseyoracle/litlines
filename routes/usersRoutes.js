@@ -28,7 +28,7 @@ usersRouter
   .route("/register")
   .post(upload.single("profilePic"), userValidationRules, register);
 
-usersRouter.route("check-login").post(checkLoggedIn);
+usersRouter.route("/check-login").get(checkLoggedIn);
 
 usersRouter
   .route("/:id")
