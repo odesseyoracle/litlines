@@ -47,7 +47,7 @@ const AddBook = ({ setNewBookLink }) => {
 
   return (
     <>
-      <h1>Add a book 📚 </h1>
+      <h2>Add a book 📚 </h2>
       <form>
         <label htmlFor="title">Title</label>
         <input

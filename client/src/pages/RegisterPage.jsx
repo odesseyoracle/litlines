@@ -52,7 +52,7 @@ const RegisterPage = () => {
 
   return (
     <>
-      <h1>Register User</h1>
+      <h2>Register User</h2>
       <form>
         <label htmlFor="userName">Username</label>
         <input

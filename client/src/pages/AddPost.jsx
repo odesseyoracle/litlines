@@ -74,7 +74,7 @@ const AddPost = ({ name, id }) => {
 
   return (
     <>
-      <h1>Add a quote 📝 </h1>
+      <h2>Add a quote 📝 </h2>
       <form>
         <label htmlFor="bookInfo">Book</label>
 
