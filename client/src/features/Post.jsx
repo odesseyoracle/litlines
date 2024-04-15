@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import UserInfo from "./UserInfo";
 
 const Post = ({ _id, quote, author, page, bookInfo, user }) => {
   const postStyle = {
@@ -46,6 +47,7 @@ const Post = ({ _id, quote, author, page, bookInfo, user }) => {
 
   return (
     <div style={postStyle}>
+      <UserInfo id={user} />
       <button onClick={handleDelete} style={buttonStyle}>
         [X]
       </button>
@@ -53,7 +55,6 @@ const Post = ({ _id, quote, author, page, bookInfo, user }) => {
       <p style={contentStyle}>{author}</p>
       <p style={contentStyle}>Page: {page}</p>
       <p style={contentStyle}>Book Info: {bookInfo}</p>
-      <p style={contentStyle}>User: {user}</p>
     </div>
   );
 };
