@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "/logo.png";
+import axios from "axios";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [userState, setUserState] = useState({ isLoggedIn: false });
 
   useEffect(() => {
@@ -19,7 +21,13 @@ const Navbar = () => {
   const handleLogin = async () => {
     try {
       if (userState.isLoggedIn) {
+        await axios.post("http://localhost:3000/users/logout");
+        if (res.status == "200") {
+          console.log("Logout successful");
+        }
       }
+      setUserState({ isLoggedIn: false });
+      navigate("/login");
     } catch (error) {
       console.log("error:", error);
     }
