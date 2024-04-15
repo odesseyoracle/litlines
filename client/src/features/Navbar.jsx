@@ -8,18 +8,18 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { userState, dispatchUser } = useAppContext();
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await axios.get("http://localhost:3000/users/");
-        console.log("response:", response);
-        dispatchUser({ type: "fetch-user-data", value: response.data });
-      } catch (error) {
-        console.log("Error checking session cookie:", error);
-      }
-    };
-    fetchUserData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchUserData = async () => {
+  //     try {
+  //       const response = await axios.get("http://localhost:3000/users/");
+  //       console.log("response:", response);
+  //       dispatchUser({ type: "fetch-user-data", value: response.data });
+  //     } catch (error) {
+  //       console.log("Error checking session cookie:", error);
+  //     }
+  //   };
+  //   fetchUserData();
+  // }, []);
 
   const navigateToLogin = async () => {
     try {
