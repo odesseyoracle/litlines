@@ -39,7 +39,7 @@ export const Login = () => {
   };
 
   return (
-    <>
+    <div className="container">
       <h2>Login</h2>
       <form>
         <label htmlFor="userName">Username</label>
@@ -63,6 +63,6 @@ export const Login = () => {
         <button onClick={handleSubmit}>Login</button>
       </form>
       <Link to="/register">Click here to create an account</Link>
-    </>
+    </div>
   );
 };

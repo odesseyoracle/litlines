@@ -73,7 +73,7 @@ const AddPost = ({ name, id }) => {
   };
 
   return (
-    <>
+    <div className="container popup">
       <h2>Add a quote 📝 </h2>
       <form>
         <label htmlFor="bookInfo">Book</label>
@@ -123,7 +123,7 @@ const AddPost = ({ name, id }) => {
         <br />
         <button onClick={handleSubmit}>Add Quote</button>
       </form>
-    </>
+    </div>
   );
 };
 

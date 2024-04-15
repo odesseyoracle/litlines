@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import logo from "/logo.png";
 import axios from "axios";
 import { useAppContext } from "../contexts/AppContext.jsx";
@@ -43,7 +43,10 @@ const Navbar = () => {
   return (
     <>
       <nav>
-        <img className="logo" src={logo} alt="LitLines Logo" />
+        <Link to="/">
+          <img className="logo" src={logo} alt="LitLines Logo" />
+        </Link>
+
         <h1>LitLines</h1>
         <button onClick={navigateToLogin}>
           {userState.isLoggedIn ? "Logout" : "Login"}

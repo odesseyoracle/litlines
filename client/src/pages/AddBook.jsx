@@ -46,7 +46,7 @@ const AddBook = ({ setNewBookLink }) => {
   };
 
   return (
-    <>
+    <div className="container popup">
       <h2>Add a book 📚 </h2>
       <form>
         <label htmlFor="title">Title</label>
@@ -104,7 +104,7 @@ const AddBook = ({ setNewBookLink }) => {
         <br />
         <button onClick={handleSubmit}>Add Book</button>
       </form>
-    </>
+    </div>
   );
 };
 

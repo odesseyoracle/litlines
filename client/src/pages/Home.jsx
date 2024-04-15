@@ -9,13 +9,13 @@ export const Home = () => {
   const { userState } = useAppContext();
 
   return (
-    <>
+    <div className="container">
       {userState.isLoggedIn ? (
         <AddPost name={userState.userName} id={userState._id} />
       ) : (
         <h4>Login to post quotes</h4>
       )}
       <PostList />
-    </>
+    </div>
   );
 };
