@@ -146,9 +146,22 @@ const deleteUser = async (req, res) => {
 
 const checkLoggedIn = async (req, res) => {
   try {
-    const sessionCookieExists = req.cookies["sessionToken"];
-    console.log("sessionCookieExists:", sessionCookieExists);
-    res.json({ cookieExists: !!sessionCookieExists });
+    const token = req.cookies.sessionToken;
+    if (!token) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    const decoded = jwt.verify(token, "secretCode");
+    const user = await User.findById(decoded.userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    console.log("user:", user);
+    const userObj = user.toObject();
+    delete userObj.password;
+
+    res.status(200).json({ message: "User logged in", user: userObj });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
