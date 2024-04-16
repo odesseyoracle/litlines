@@ -152,6 +152,14 @@ button {
 
 
 @media screen and (max-width: 480px) {
+
+  nav {
+    height: 7rem;
+  }
+
+  .logo {
+    width: 90px;
+  }
  
   .post {
     padding: 10px;
