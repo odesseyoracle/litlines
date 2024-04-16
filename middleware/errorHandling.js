@@ -6,4 +6,9 @@ const errorResponder = (err, req, res, next) => {
   });
 };
 
-export { errorResponder };
+const invalidPathHandler = (req, res, next) => {
+  res.status(404).send("Page not found");
+  next();
+};
+
+export { errorResponder, invalidPathHandler };
