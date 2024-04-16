@@ -3,13 +3,17 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import AddBook from "./AddBook";
 
-const AddPost = ({ name, id }) => {
+import { useAppContext } from "../contexts/AppContext.jsx";
+
+const AddPost = () => {
+  const { userState } = useAppContext();
+
   const [post, setPost] = useState({
     quote: "",
     author: "",
     page: "",
     bookInfo: "",
-    user: id,
+    user: userState.user._id,
   });
 
   const [books, setBooks] = useState([]);
@@ -27,7 +31,7 @@ const AddPost = ({ name, id }) => {
     };
 
     fetchBooks();
-  }, []);
+  }, [books]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -63,7 +67,7 @@ const AddPost = ({ name, id }) => {
           author: "",
           page: "",
           bookInfo: "",
-          user: id,
+          user: userState.user._id,
         });
         window.location.reload();
       }
@@ -117,7 +121,7 @@ const AddPost = ({ name, id }) => {
         />
         <br />
         <label htmlFor="user">
-          User: <span id="user">{name}</span>
+          User: <span id="user">{userState.user.userName}</span>
         </label>
 
         <br />
