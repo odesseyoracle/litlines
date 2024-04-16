@@ -73,6 +73,7 @@ button {
 
 /* Posts */
 .post {
+  position: relative;
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
@@ -83,10 +84,14 @@ button {
   text-align: center;
 }
 
-.post .exit-button {
+.post .header-button-container {
   position: absolute;
   top: 5px;
   right: 5px;
+  display: flex;
+}
+
+.post .header-button {
   background-color: transparent;
   color: black;
   border: none;

@@ -6,19 +6,21 @@ import AddBook from "./AddBook";
 import { useAppContext } from "../contexts/AppContext.jsx";
 
 const AddPost = () => {
-  const { userState } = useAppContext();
-
+  const { userState, fetchQuotes } = useAppContext();
+  console.log("userState:", userState);
   const [post, setPost] = useState({
     quote: "",
     author: "",
     page: "",
     bookInfo: "",
-    user: userState.user._id,
+    user: userState._id,
   });
 
   const [books, setBooks] = useState([]);
 
   const [newBookLink, setNewBookLink] = useState(false);
+
+  const [bookSelected, setBookSelected] = useState(false);
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -29,9 +31,8 @@ const AddPost = () => {
         console.error("Error fetching books:", error);
       }
     };
-
     fetchBooks();
-  }, [books]);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,11 +41,17 @@ const AddPost = () => {
 
   const handleBookSelect = (e) => {
     const { value } = e.target;
+    console.log("value:", value);
+    if (value !== "") {
+      setBookSelected(true);
+    } else {
+      setBookSelected(false);
+    }
     if (value === "addNewBook") {
       setNewBookLink(true);
     } else {
       const selectedBook = books.find((book) => book._id === value);
-
+      console.log("selectedBook:", selectedBook);
       setNewBookLink(false);
       setPost({
         ...post,
@@ -56,6 +63,7 @@ const AddPost = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("post:", post);
     try {
       const res = await axios.post("http://localhost:4000/posts/addPost", post);
 
@@ -67,9 +75,9 @@ const AddPost = () => {
           author: "",
           page: "",
           bookInfo: "",
-          user: userState.user._id,
+          user: userState._id,
         });
-        window.location.reload();
+        fetchQuotes();
       }
     } catch (error) {
       console.log("Error adding quote", error);
@@ -92,40 +100,48 @@ const AddPost = () => {
           <option value="addNewBook">Add a new Book ...</option>
         </select>
 
-        {newBookLink && <AddBook setNewBookLink={setNewBookLink} />}
+        {newBookLink && (
+          <AddBook
+            setNewBookLink={setNewBookLink}
+            setBookSelected={setBookSelected}
+          />
+        )}
+        {bookSelected && !newBookLink && (
+          <div className="container">
+            <br />
+            <label htmlFor="quote">Quote</label>
+            <textarea
+              type="text"
+              id="quote"
+              name="quote"
+              placeholder="Quote"
+              rows="5"
+              cols="40"
+              onChange={handleChange}
+            />
+            <br />
+            <label htmlFor="author">
+              Author: <span>{post.author}</span>
+            </label>
 
-        <br />
-        <label htmlFor="quote">Quote</label>
-        <textarea
-          type="text"
-          id="quote"
-          name="quote"
-          placeholder="Quote"
-          rows="5"
-          cols="40"
-          onChange={handleChange}
-        />
-        <br />
-        <label htmlFor="author">
-          Author: <span>{post.author}</span>
-        </label>
+            <br />
+            <label htmlFor="page">Page</label>
+            <input
+              type="number"
+              id="page"
+              name="page"
+              placeholder="Page"
+              onChange={handleChange}
+            />
+            <br />
+            <label htmlFor="user">
+              User: <span id="user">{userState.userName}</span>
+            </label>
 
-        <br />
-        <label htmlFor="page">Page</label>
-        <input
-          type="number"
-          id="page"
-          name="page"
-          placeholder="Page"
-          onChange={handleChange}
-        />
-        <br />
-        <label htmlFor="user">
-          User: <span id="user">{userState.user.userName}</span>
-        </label>
-
-        <br />
-        <button onClick={handleSubmit}>Add Quote</button>
+            <br />
+            <button onClick={handleSubmit}>Add Quote</button>
+          </div>
+        )}
       </form>
     </div>
   );
