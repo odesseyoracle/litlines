@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import UserInfo from "./UserInfo";
+import BookInfo from "../pages/BookInfo.jsx";
 
 const Post = ({ _id, quote, author, page, bookInfo, user }) => {
   const handleDelete = async () => {
@@ -19,7 +20,7 @@ const Post = ({ _id, quote, author, page, bookInfo, user }) => {
       <h4>{quote}</h4>
       <p>{author}</p>
       <p>Page: {page}</p>
-      <p>Book Info: {bookInfo}</p>
+      <BookInfo bookInfo={bookInfo} />
     </div>
   );
 };
