@@ -19,8 +19,7 @@ const Post = ({ _id, quote, author, page, bookInfo, user }) => {
       <button onClick={handleDelete}>[X]</button>
       <h4>{quote}</h4>
       <p>{author}</p>
-      <p>Page: {page}</p>
-      <BookInfo bookInfo={bookInfo} />
+      <BookInfo bookInfo={bookInfo} page={page} />
     </div>
   );
 };

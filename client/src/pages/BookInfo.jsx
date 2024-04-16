@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const BookInfo = ({ bookInfo }) => {
-  const [bookData, setBookData] = useState(null);
+const BookInfo = ({ bookInfo, page }) => {
+  const [bookData, setBookData] = useState("");
   console.log("bookData:", bookData);
   useEffect(() => {
     const fetchBookData = async () => {
@@ -18,7 +18,13 @@ const BookInfo = ({ bookInfo }) => {
     };
     fetchBookData();
   }, []);
-  return <div>{bookInfo}</div>;
+  return (
+    <div>
+      <h4>{bookData.title}</h4>
+      <img src={bookData.avatar} alt="Bok Cover" />
+      <p>Page: {page}</p>
+    </div>
+  );
 };
 
 export default BookInfo;
