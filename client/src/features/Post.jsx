@@ -18,10 +18,12 @@ const Post = ({ _id, quote, author, page, bookInfo, user }) => {
   return (
     <div className="post">
       <UserInfo id={user} />
-      <button className="header-button">[Edit]</button>
-      <button className="header-button" onClick={handleDelete}>
-        [X]
-      </button>
+      <div className="header-button-container">
+        <button className="header-button">[Edit]</button>
+        <button className="header-button" onClick={handleDelete}>
+          [X]
+        </button>
+      </div>
       <h4>{quote}</h4>
       <p>{author}</p>
       <button onClick={() => setShowBookInfo(!showBookInfo)}>
