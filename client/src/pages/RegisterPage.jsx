@@ -30,7 +30,7 @@ const RegisterPage = () => {
       formData.append("profilePic", data.profilePic);
 
       const res = await axios.post(
-        "http://localhost:3000/users/register",
+        "http://localhost:4000/users/register",
         formData
       );
       console.log("res:", res);

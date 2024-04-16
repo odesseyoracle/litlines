@@ -39,6 +39,7 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
+  console.log("testi:");
   try {
     const { userName, password } = req.body;
 
@@ -58,7 +59,7 @@ const login = async (req, res) => {
     const token = jwt.sign({ userId: user._id }, "secretCode", {
       expiresIn: "1h",
     });
-    res.cookie("sessionToken", token, { httpOnly: true, secure: true });
+    res.cookie("sessionToken", token, { httpOnly: true });
     res
       .status(200)
       .json({ message: `User ${user.userName} logged in successfully`, user });

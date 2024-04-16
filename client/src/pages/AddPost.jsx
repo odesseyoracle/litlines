@@ -19,7 +19,7 @@ const AddPost = ({ name, id }) => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/books");
+        const response = await axios.get("http://localhost:4000/books");
         setBooks(response.data);
       } catch (error) {
         console.error("Error fetching books:", error);
@@ -53,7 +53,7 @@ const AddPost = ({ name, id }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:3000/posts/addPost", post);
+      const res = await axios.post("http://localhost:4000/posts/addPost", post);
       console.log("res:", res);
       if (res.status == "200") {
         console.log("Quote successfully added");

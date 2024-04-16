@@ -9,7 +9,7 @@ const UserInfo = ({ id }) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/users/${id}`);
+        const res = await axios.get(`http://localhost:4000/users/${id}`);
         setUser(res.data);
       } catch (error) {
         console.error("Error fetching user:", error);

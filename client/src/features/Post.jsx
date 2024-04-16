@@ -5,7 +5,7 @@ import UserInfo from "./UserInfo";
 const Post = ({ _id, quote, author, page, bookInfo, user }) => {
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:3000/posts/${_id}`);
+      await axios.delete(`http://localhost:4000/posts/${_id}`);
       window.location.reload();
     } catch (error) {
       console.error("Error deleting post:", error);

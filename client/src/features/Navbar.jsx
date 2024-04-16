@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import logo from "/logo.png";
 import axios from "axios";
 import { useAppContext } from "../contexts/AppContext.jsx";
+import AuthButton from "./AuthButton.jsx";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const Navbar = () => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/users/check-login",
+          "http://localhost:4000/users/check-login",
           { withCredentials: true }
         );
         console.log("response:", response);
@@ -24,10 +25,20 @@ const Navbar = () => {
     fetchUserData();
   }, []);
 
-  const navigateToLogin = async () => {
+  const navigateToLogin = () => {
+    navigate("/login");
+  };
+
+  const handleLogout = async () => {
     try {
       if (userState.isLoggedIn) {
-        const res = await axios.post("http://localhost:3000/users/logout");
+        const res = await axios.post(
+          "http://localhost:4000/users/logout",
+          {},
+          {
+            withCredentials: true,
+          }
+        );
         if (res.status == "200") {
           console.log("Logout successful");
           dispatchUser({ type: "logout" });
@@ -48,9 +59,14 @@ const Navbar = () => {
         </Link>
 
         <h1>LitLines</h1>
-        <button onClick={navigateToLogin}>
+        {/* <button onClick={navigateToLogin}>
           {userState.isLoggedIn ? "Logout" : "Login"}
-        </button>
+        </button> */}
+        {userState.isLoggedIn ? (
+          <AuthButton text="Logout" handleAuth={handleLogout} />
+        ) : (
+          <AuthButton text="Login" handleAuth={navigateToLogin} />
+        )}
       </nav>
     </>
   );

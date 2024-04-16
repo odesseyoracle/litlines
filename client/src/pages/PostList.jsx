@@ -13,7 +13,7 @@ const PostList = () => {
   const fetchQuotes = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("http://localhost:3000/posts/");
+      const res = await axios.get("http://localhost:4000/posts/");
       let data = await res.data;
       data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       setQuotes(data);

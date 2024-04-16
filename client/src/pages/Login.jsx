@@ -20,7 +20,7 @@ export const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:3000/users/login", user, {
+      const res = await axios.post("http://localhost:4000/users/login", user, {
         withCredentials: true,
       });
       const data = res.data;

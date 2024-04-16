@@ -47,6 +47,16 @@ app.get("/", (req, res) => {
   res.send("server is running");
 });
 
+// Middleware to log the method and path of each request, and the body of POST requests
+app.use((req, res, next) => {
+  console.log(`current request infos: ${req.method}  ${req.path} Cookies:`);
+  if (req.method !== "GET") {
+    console.log(`req.body: ${JSON.stringify(req.body)}`);
+  }
+  console.log("\n");
+  next();
+});
+
 // ROUTES
 
 app.use(usersMainPath, usersRouter);
@@ -61,6 +71,6 @@ app.use(errorResponder);
 
 app.listen(port, () => {
   console.log(
-    `📚 Server for LitLines is running on http://localhost:${port} 📚`
+    `📚 Server for LitLines is running on http://localhost:${port} 📚 hihi`
   );
 });
