@@ -6,14 +6,14 @@ import AddBook from "./AddBook";
 import { useAppContext } from "../contexts/AppContext.jsx";
 
 const AddPost = () => {
-  const { userState } = useAppContext();
-
+  const { userState, fetchQuotes } = useAppContext();
+  console.log("userState:", userState);
   const [post, setPost] = useState({
     quote: "",
     author: "",
     page: "",
     bookInfo: "",
-    user: userState.user._id,
+    user: userState._id,
   });
 
   const [books, setBooks] = useState([]);
@@ -31,9 +31,8 @@ const AddPost = () => {
         console.error("Error fetching books:", error);
       }
     };
-
     fetchBooks();
-  }, [books]);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,6 +41,7 @@ const AddPost = () => {
 
   const handleBookSelect = (e) => {
     const { value } = e.target;
+    console.log("value:", value);
     if (value !== "") {
       setBookSelected(true);
     } else {
@@ -51,7 +51,7 @@ const AddPost = () => {
       setNewBookLink(true);
     } else {
       const selectedBook = books.find((book) => book._id === value);
-
+      console.log("selectedBook:", selectedBook);
       setNewBookLink(false);
       setPost({
         ...post,
@@ -63,6 +63,7 @@ const AddPost = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("post:", post);
     try {
       const res = await axios.post("http://localhost:4000/posts/addPost", post);
 
@@ -74,9 +75,9 @@ const AddPost = () => {
           author: "",
           page: "",
           bookInfo: "",
-          user: userState.user._id,
+          user: userState._id,
         });
-        window.location.reload();
+        fetchQuotes();
       }
     } catch (error) {
       console.log("Error adding quote", error);
@@ -134,7 +135,7 @@ const AddPost = () => {
             />
             <br />
             <label htmlFor="user">
-              User: <span id="user">{userState.user.userName}</span>
+              User: <span id="user">{userState.userName}</span>
             </label>
 
             <br />

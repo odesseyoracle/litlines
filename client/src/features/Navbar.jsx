@@ -17,7 +17,7 @@ const Navbar = () => {
           { withCredentials: true }
         );
 
-        dispatchUser({ type: "fetch-user-data", value: response.data });
+        dispatchUser({ type: "fetch-user-data", value: response.data.user });
       } catch (error) {
         console.log("Error checking session cookie:", error);
       }
