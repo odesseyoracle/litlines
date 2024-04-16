@@ -83,7 +83,7 @@ button {
   text-align: center;
 }
 
-.post button {
+.post .exit-button {
   position: absolute;
   top: 5px;
   right: 5px;
@@ -138,6 +138,12 @@ button {
   padding: 10px 20px;
 }
 
+.book-info img {
+  width: 80%;
+  height: auto;
+  margin-bottom: 10px;
+
+}
 
 
 @media screen and (max-width: 480px) {
