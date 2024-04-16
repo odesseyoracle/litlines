@@ -8,7 +8,10 @@ import cookieParser from "cookie-parser";
 import { usersMainPath, usersRouter } from "./routes/usersRoutes.js";
 import { booksRouter, booksMainPath } from "./routes/booksRoutes.js";
 import { postsRouter, postsMainPath } from "./routes/postsRoutes.js";
-import { errorResponder } from "./middleware/errorHandling.js";
+import {
+  errorResponder,
+  invalidPathHandler,
+} from "./middleware/errorHandling.js";
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -51,7 +54,7 @@ app.use(booksMainPath, booksRouter);
 app.use(postsMainPath, postsRouter);
 
 // ERROR HANDLING
-
+app.use(invalidPathHandler);
 app.use(errorResponder);
 
 // RUN SERVER
