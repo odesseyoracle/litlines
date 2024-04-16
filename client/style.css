@@ -83,7 +83,7 @@ button {
   text-align: center;
 }
 
-.post button {
+.post .exit-button {
   position: absolute;
   top: 5px;
   right: 5px;
