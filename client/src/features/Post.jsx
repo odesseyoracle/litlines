@@ -39,7 +39,11 @@ const Post = ({ _id, quote, author, page, bookInfo, user }) => {
           </button>
         </div>
       )}
-      {showEdit ? <EditPostForm /> : <h4>{quote}</h4>}
+      {showEdit ? (
+        <EditPostForm _id={_id} quoteToEdit={quote} setShowEdit={setShowEdit} />
+      ) : (
+        <h4>{quote}</h4>
+      )}
       <p>{author}</p>
       <button onClick={() => setShowBookInfo(!showBookInfo)}>
         {showBookInfo ? "Hide Book Info" : "Show Book Info"}
