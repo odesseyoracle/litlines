@@ -19,7 +19,7 @@ const BookInfo = ({ bookInfo, page }) => {
     fetchBookData();
   }, []);
   return (
-    <div>
+    <div className="book-info">
       <h4>{bookData.title}</h4>
       <img src={bookData.avatar} alt="Bok Cover" />
       <p>Page: {page}</p>

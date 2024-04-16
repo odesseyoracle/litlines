@@ -138,6 +138,12 @@ button {
   padding: 10px 20px;
 }
 
+.book-info img {
+  width: 80%;
+  height: auto;
+  margin-bottom: 10px;
+
+}
 
 
 @media screen and (max-width: 480px) {
