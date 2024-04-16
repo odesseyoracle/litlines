@@ -41,7 +41,7 @@ const AddPost = () => {
 
   const handleBookSelect = (e) => {
     const { value } = e.target;
-    console.log("value:", value);
+
     if (value !== "") {
       setBookSelected(true);
     } else {
@@ -51,7 +51,7 @@ const AddPost = () => {
       setNewBookLink(true);
     } else {
       const selectedBook = books.find((book) => book._id === value);
-      console.log("selectedBook:", selectedBook);
+
       setNewBookLink(false);
       setPost({
         ...post,
