@@ -10,7 +10,11 @@ export const Home = () => {
 
   return (
     <div className="container">
-      {userState.isLoggedIn ? <AddPost /> : <h4>Login to post quotes</h4>}
+      {userState.isLoggedIn ? (
+        <AddPost />
+      ) : (
+        <div className="post">Login to post quotes</div>
+      )}
       <PostList />
     </div>
   );
