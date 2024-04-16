@@ -21,7 +21,6 @@ const AddBook = ({ setNewBookLink }) => {
   }
 
   const handleSubmit = async (e) => {
-    console.log("test");
     e.preventDefault();
     try {
       let formData = new FormData();

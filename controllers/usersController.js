@@ -39,7 +39,6 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  console.log("testi:");
   try {
     const { userName, password } = req.body;
 
@@ -158,7 +157,7 @@ const checkLoggedIn = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    console.log("user:", user);
+
     const userObj = user.toObject();
     delete userObj.password;
 

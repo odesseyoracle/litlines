@@ -16,7 +16,7 @@ const Navbar = () => {
           "http://localhost:4000/users/check-login",
           { withCredentials: true }
         );
-        console.log("response:", response);
+
         dispatchUser({ type: "fetch-user-data", value: response.data });
       } catch (error) {
         console.log("Error checking session cookie:", error);

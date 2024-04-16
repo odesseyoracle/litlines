@@ -40,7 +40,7 @@ const AddPost = ({ name, id }) => {
       setNewBookLink(true);
     } else {
       const selectedBook = books.find((book) => book._id === value);
-      console.log("selectedBook:", selectedBook);
+
       setNewBookLink(false);
       setPost({
         ...post,
@@ -54,7 +54,7 @@ const AddPost = ({ name, id }) => {
     e.preventDefault();
     try {
       const res = await axios.post("http://localhost:4000/posts/addPost", post);
-      console.log("res:", res);
+
       if (res.status == "200") {
         console.log("Quote successfully added");
         setPost({

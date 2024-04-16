@@ -4,7 +4,6 @@ import axios from "axios";
 
 const UserInfo = ({ id }) => {
   const [user, setUser] = useState({});
-  console.log("user:", user);
 
   useEffect(() => {
     const fetchUser = async () => {

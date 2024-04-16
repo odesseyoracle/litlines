@@ -24,7 +24,7 @@ export const Login = () => {
         withCredentials: true,
       });
       const data = res.data;
-      console.log("res: ", res);
+
       if (res.status == "200") {
         setUser({
           userName: "",

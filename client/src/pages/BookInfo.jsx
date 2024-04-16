@@ -3,14 +3,14 @@ import axios from "axios";
 
 const BookInfo = ({ bookInfo, page }) => {
   const [bookData, setBookData] = useState("");
-  console.log("bookData:", bookData);
+
   useEffect(() => {
     const fetchBookData = async () => {
       try {
         const id = bookInfo;
         const res = await axios.get(`http://localhost:4000/books/${id}`);
         const data = res.data;
-        console.log("data:", data);
+
         setBookData(data);
       } catch (error) {
         console.log("Error fetching book data:", error);

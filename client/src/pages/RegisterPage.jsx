@@ -33,7 +33,6 @@ const RegisterPage = () => {
         "http://localhost:4000/users/register",
         formData
       );
-      console.log("res:", res);
 
       if (res.status == "200") {
         console.log("successfully registered");
