@@ -7,7 +7,7 @@ import { useAppContext } from "../contexts/AppContext.jsx";
 
 const AddPost = () => {
   const { userState, fetchQuotes } = useAppContext();
-  console.log("userState:", userState);
+
   const [post, setPost] = useState({
     quote: "",
     author: "",
@@ -78,6 +78,7 @@ const AddPost = () => {
           user: userState._id,
         });
         fetchQuotes();
+        setBookSelected(false);
       }
     } catch (error) {
       console.log("Error adding quote", error);
@@ -117,6 +118,7 @@ const AddPost = () => {
               placeholder="Quote"
               rows="5"
               cols="40"
+              value={post.quote}
               onChange={handleChange}
             />
             <br />
@@ -131,6 +133,7 @@ const AddPost = () => {
               id="page"
               name="page"
               placeholder="Page"
+              value={post.page}
               onChange={handleChange}
             />
             <br />
