@@ -18,7 +18,8 @@ const Post = ({ _id, quote, author, page, bookInfo, user }) => {
   return (
     <div className="post">
       <UserInfo id={user} />
-      <button className="exit-button" onClick={handleDelete}>
+      <button className="header-button">[Edit]</button>
+      <button className="header-button" onClick={handleDelete}>
         [X]
       </button>
       <h4>{quote}</h4>
