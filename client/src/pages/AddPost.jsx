@@ -20,6 +20,8 @@ const AddPost = () => {
 
   const [newBookLink, setNewBookLink] = useState(false);
 
+  const [bookSelected, setBookSelected] = useState(false);
+
   useEffect(() => {
     const fetchBooks = async () => {
       try {
@@ -40,6 +42,11 @@ const AddPost = () => {
 
   const handleBookSelect = (e) => {
     const { value } = e.target;
+    if (value !== "") {
+      setBookSelected(true);
+    } else {
+      setBookSelected(false);
+    }
     if (value === "addNewBook") {
       setNewBookLink(true);
     } else {
@@ -92,40 +99,48 @@ const AddPost = () => {
           <option value="addNewBook">Add a new Book ...</option>
         </select>
 
-        {newBookLink && <AddBook setNewBookLink={setNewBookLink} />}
+        {newBookLink && (
+          <AddBook
+            setNewBookLink={setNewBookLink}
+            setBookSelected={setBookSelected}
+          />
+        )}
+        {bookSelected && !newBookLink && (
+          <div className="container">
+            <br />
+            <label htmlFor="quote">Quote</label>
+            <textarea
+              type="text"
+              id="quote"
+              name="quote"
+              placeholder="Quote"
+              rows="5"
+              cols="40"
+              onChange={handleChange}
+            />
+            <br />
+            <label htmlFor="author">
+              Author: <span>{post.author}</span>
+            </label>
 
-        <br />
-        <label htmlFor="quote">Quote</label>
-        <textarea
-          type="text"
-          id="quote"
-          name="quote"
-          placeholder="Quote"
-          rows="5"
-          cols="40"
-          onChange={handleChange}
-        />
-        <br />
-        <label htmlFor="author">
-          Author: <span>{post.author}</span>
-        </label>
+            <br />
+            <label htmlFor="page">Page</label>
+            <input
+              type="number"
+              id="page"
+              name="page"
+              placeholder="Page"
+              onChange={handleChange}
+            />
+            <br />
+            <label htmlFor="user">
+              User: <span id="user">{userState.user.userName}</span>
+            </label>
 
-        <br />
-        <label htmlFor="page">Page</label>
-        <input
-          type="number"
-          id="page"
-          name="page"
-          placeholder="Page"
-          onChange={handleChange}
-        />
-        <br />
-        <label htmlFor="user">
-          User: <span id="user">{userState.user.userName}</span>
-        </label>
-
-        <br />
-        <button onClick={handleSubmit}>Add Quote</button>
+            <br />
+            <button onClick={handleSubmit}>Add Quote</button>
+          </div>
+        )}
       </form>
     </div>
   );

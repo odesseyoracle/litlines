@@ -3,7 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { set } from "mongoose";
 
-const AddBook = ({ setNewBookLink }) => {
+const AddBook = ({ setNewBookLink, setBookSelected }) => {
   const [book, setBook] = useState({
     title: "",
     author: "",
@@ -37,6 +37,7 @@ const AddBook = ({ setNewBookLink }) => {
       );
       if (res.status == "200") {
         console.log("book successfully added");
+        setBookSelected(false);
         setNewBookLink(false);
       }
     } catch (error) {
